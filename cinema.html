@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Киноға барамыз ба? ❤️</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg, #ffe1e9, #fff0f3, #ffd1dc);
+  color: #873b50;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 430px;
+  padding: 40px 25px;
+  text-align: center;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid white;
+  border-radius: 28px;
+  box-shadow: 0 15px 50px #c96d8430;
+}
+
+.heart {
+  font-size: 60px;
+  animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+  50% { transform: scale(1.18); }
+}
+
+h1 {
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #9d6474;
+}
+
+.details {
+  margin: 25px 0;
+  padding: 18px;
+  background: #fff0f4;
+  border-radius: 18px;
+  text-align: left;
+  line-height: 2.2;
+  font-size: 16px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 30px;
+  min-height: 65px;
+}
+
+button {
+  border: none;
+  padding: 14px 27px;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#yes {
+  background: #e85d80;
+  color: white;
+  box-shadow: 0 5px 15px #e85d8060;
+}
+
+#no {
+  background: #f2dce2;
+  color: #9b5267;
+}
+
+#success {
+  display: none;
+}
+
+#success h1 {
+  color: #e34f77;
+}
+
+.big {
+  font-size: 70px;
+  margin-bottom: 20px;
+}
+
+.floating {
+  position: fixed;
+  bottom: -40px;
+  animation: floatUp linear forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="main">
+
+  <div class="heart">❤️</div>
+
+  <h1>Сүйіктім! Ертеңгі кешті бірге өткізсек❤️</h1>
+
+  <p>
+     Жаным! Я приглашаю тебя в кино😊
+    <br><br>
+    Менімен бірге киноға барасың ба? 🍿
+  </p>
+
+  <div class="details">
+    📍 <b>Мекенжай:</b> ТРЦ «Москва»<br>
+    🕒 <b>Уақыты:</b> Ертең, 00:50
+  </div>
+
+  <p>Менімен барасың ба? </p>
+
+  <div class="buttons">
+    <button id="yes" onclick="accept()">Иә ❤️</button>
+    <button id="no" onclick="reject()">Жоқ 🙈</button>
+  </div>
+
+</div>
+
+<div class="card" id="success">
+
+  <div class="big">🥰❤️</div>
+
+  <h1>УРААА!</h1>
+
+  <p>
+    Сенің «Иә» дегенің мен үшін
+    ең үлкен бақыт😘
+    <br><br>
+    Жду тебя с нетерпением! 💗
+  </p>
+
+  <div style="font-size:40px; margin-top:25px;">
+    🍿 🎬 💕
+  </div>
+
+</div>
+
+<script>
+let noSize = 1;
+let noClicks = 0;
+
+function reject() {
+  noClicks++;
+  noSize *= 0.75;
+
+  const no = document.getElementById("no");
+
+  no.style.transform = `scale(${noSize})`;
+
+  const messages = [
+    "Точно? 🥺",
+    "Тағы бір ойлан ❤️",
+    "Мүмкін, Иә? 🙈",
+    "Позязя",
+    "Может все таки иә? 💗"
+  ];
+
+  no.innerText = messages[
+    Math.min(noClicks - 1, messages.length - 1)
+  ];
+
+  if (noSize < 0.12) {
+    no.style.display = "none";
+  }
+}
+
+function accept() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("success").style.display = "block";
+
+  for (let i = 0; i < 45; i++) {
+    setTimeout(createHeart, i * 100);
+  }
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+
+  heart.className = "floating";
+
+  heart.innerText = ["❤️", "💕", "💗", "💖"][
+    Math.floor(Math.random() * 4)
+  ];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createHeart, 900);
+</script>
+
+</body>
+</html>
